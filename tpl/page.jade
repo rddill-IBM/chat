@@ -1,0 +1,48 @@
+﻿doctype
+html
+    head
+        title!=name
+        meta(charset='utf-8')
+        link(href="./style.css", rel='stylesheet')
+    body
+        #loadAll(onclick="loadAll()") Загрузить историю сообещений
+        #mes-container
+        form(onSubmit="return clicksend()" )
+            input(type='text', id='mesText', placeholder='Введи сообщение...')
+            input(type='submit', value='send')
+        script(src='/socket.io/socket.io.js')
+        script.
+            var socket = io();
+            socket.on('reload', function () { location.reload(); });
+            function clicksend() {
+                var inp = document.getElementById("mesText").value;
+                if(inp != '')
+                    socket.emit('new message send', inp );
+                document.getElementById("mesText").value = '';
+                return false;
+            }
+            function loadAll() {
+                document.getElementById("mes-container").innerHTML = '';
+                socket.emit('loadAll');
+            }
+            window.onload = function () {
+                pass = 8888;
+                // pass = prompt("Пароль: ");
+                socket.emit('login', pass);
+                socket.on('new message show', function (msg) {
+                    var div = document.createElement('div');
+                    div.innerHTML = msg;
+                    document.getElementById('mes-container').appendChild(div);
+                    scroll();
+                });
+                scroll()
+            }
+            function scroll() {
+                var div = document.getElementById('mes-container');
+                div.scrollTop = div.scrollHeight - div.clientHeight;
+            }
+            window.onresize = function() {
+                scroll();
+            };
+
+
