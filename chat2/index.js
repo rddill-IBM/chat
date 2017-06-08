@@ -1,13 +1,15 @@
 let express = require('express'),
-    sqlite3 = require('sqlite3'),
     app = express(),
     http = require('http').Server(app),
-    io = require('socket.io')(http),
-    iconv = require('iconv-lite'),
-    path = require('path'),
-    sassMiddleware = require('node-sass-middleware'),
-    fs = require('fs'),
-    db = new sqlite3.Database('./chat/history.db');
-  
-    app.use('/chat', require("./chat/index"));
-http.listen(3000);
+    cfenv = require('cfenv'),
+    appEnv = cfenv.getAppEnv();;
+
+    app.set('appName', 'chat');
+    app.set('port', appEnv.port);
+    app.set('views', __dirname + '/chat/tpl');
+    app.engine('jade', require('jade').renderFile);
+    app.set('view engine', 'jade');
+    app.use('/', require("./chat/index"));
+
+    var server = app.listen(app.get('port'), function() {console.log(app.get('appName')+' is Listening on port %d', server.address().port);});
+//http.listen(3000);

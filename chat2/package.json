@@ -1,0 +1,33 @@
+{
+  "name": "chat2",
+  "version": "1.0.0",
+  "private": true,
+  "description": "sample chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"\"",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StekolschikovV/chat"
+  },
+  "engines": {},
+  "keywords": [
+    "chat"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cfenv": "^1.0.4",
+    "express": "^4.15.3",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "iconv-lite": "^0.4.17",
+    "jade": "^1.11.0",
+    "node-sass-middleware": "^0.11.0",
+    "path": "^0.12.7",
+    "socket.io": "^2.0.2",
+    "sqlite3": "^3.1.8"
+  }
+}

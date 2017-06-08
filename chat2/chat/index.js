@@ -16,7 +16,10 @@ if (!fs.existsSync(__dirname + '/history.db'))
 
 
 // VIEWS SETTINGS
-app.set('views engine', __dirname + '/tpl');
+console.log("__dirname is: "+__dirname);
+
+app.set('views', __dirname + '/tpl');
+app.engine('jade', require('jade').renderFile);
 app.set('view engine', 'jade');
 app.use(sassMiddleware({
     src: path.join(__dirname, '/tpl'),
@@ -25,18 +28,18 @@ app.use(sassMiddleware({
     indentedSyntax: true,
     outputStyle: 'compressed',
 }));
-app.use(express.static(__dirname + '/tpl'));
+//app.use(express.static(__dirname + '/tpl'));
 
 
 // ROUTER
 router.get("/", function (req, res) {
 	try{
-		res.render('page');	
+		res.render('page');
 	} catch(err){
 		console.log(err)
 	}
-    
-	
+
+
 });
 
 
